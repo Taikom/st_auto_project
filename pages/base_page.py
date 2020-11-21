@@ -6,6 +6,7 @@ from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from .locators import BasePageLocators
+from .locators import BasketPageLocators
 
 class BasePage():
     def __init__(self, browser, url, timeout=10):
@@ -16,6 +17,7 @@ class BasePage():
     def open(self):
         self.browser.get(self.url)
 
+    #проверяем наличие элемента
     def is_element_present(self, how, what):
         try:
             self.browser.find_element(how, what)
@@ -63,3 +65,21 @@ class BasePage():
     #должна быть ссылка на вход
     def should_be_login_link(self):
         assert self.is_element_present(*BasePageLocators.LOGIN_LINK), "Login link is not presented"
+
+
+    #переход на страницу корзины
+    def go_to_basket_page(self):
+        link = self.browser.find_element(*BasePageLocators.GO_TO_BASKET)
+        link.click()
+
+    #проверяем наличие текста в сообщении
+    def is_text_in_message(self, how, what, message):
+        assert message in self.browser.find_element(how, what).text, f"Is not message {message}"
+
+    #Проверяем, что в корзине нет товаров
+    def is_not_items_in_basket(self, how, what, timeout=4):
+        try:
+            self.browser.find_element(how, what)
+        except NoSuchElementException:
+            return True
+        return False
