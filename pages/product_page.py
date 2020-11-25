@@ -6,7 +6,6 @@ class ProductPage(BasePage):
         self.should_be_add_to_basket_message()
         self.should_be_sum_correct()
         self.should_not_be_success_message()
-        self.add_to_basket()
         self.should_message_disappeared()
 
 
