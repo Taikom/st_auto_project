@@ -66,7 +66,6 @@ class BasePage():
     def should_be_login_link(self):
         assert self.is_element_present(*BasePageLocators.LOGIN_LINK), "Login link is not presented"
 
-
     #переход на страницу корзины
     def go_to_basket_page(self):
         link = self.browser.find_element(*BasePageLocators.GO_TO_BASKET)
@@ -83,3 +82,7 @@ class BasePage():
         except NoSuchElementException:
             return True
         return False
+
+    #проверка того, что пользователь залогинен
+    def should_be_authorized_user(self):
+        assert self.is_element_present(*BasePageLocators.USER_ICON), "User icon is not presented, probably unauthorised user"

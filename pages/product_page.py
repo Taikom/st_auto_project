@@ -5,13 +5,16 @@ class ProductPage(BasePage):
     def should_be_product_page(self):
         self.should_be_add_to_basket_message()
         self.should_be_sum_correct()
+        self.should_not_be_success_message()
+        self.add_to_basket()
+        self.should_message_disappeared()
+
 
     def add_to_basket(self):
         add_to_basket_link = self.browser.find_element(*ProductPageLocators.ADD_TO_BASKET_LINK)
         add_to_basket_link.click()
 
     def should_be_add_to_basket_message(self):
-        self.browser.find_element(*ProductPageLocators.NAME_ADDED_TO_BASKET_MESSAGE).text
         assert self.browser.find_element(*ProductPageLocators.NAME_ADDED_TO_BASKET_MESSAGE).text == self.browser.find_element(*ProductPageLocators.NAME_ON_PRODUCT_PAGE).text, "Name in message and in product page are not equal"
 
     def should_be_sum_correct(self):

@@ -6,7 +6,7 @@ from selenium import webdriver
 class BasketPage(BasePage):
     def should_be_basket_page(self):
         self.should_not_items_message()
-#        self.should_be_empty()
+        self.should_be_empty()
 
     def should_not_items_message(self):
         #проверка: есть текст "нет товаров в корзине"
